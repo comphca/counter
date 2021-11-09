@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.comphca.counter.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.comphca.counter.pojo.User" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="balance" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="createDate" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="createTime" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="modifyDate" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="modifyTime" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="token" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, password, balance, createDate, createTime, modifyDate, modifyTime, token
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.comphca.counter.pojo.User" >
+    insert into t_user (id, uid, password, 
+      balance, createDate, createTime, 
+      modifyDate, modifyTime, token
+      )
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR}, 
+      #{balance,jdbcType=BIGINT}, #{createdate,jdbcType=CHAR}, #{createtime,jdbcType=CHAR}, 
+      #{modifydate,jdbcType=INTEGER}, #{modifytime,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.comphca.counter.pojo.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="modifydate != null" >
+        modifyDate,
+      </if>
+      <if test="modifytime != null" >
+        modifyTime,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=BIGINT},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=CHAR},
+      </if>
+      <if test="modifydate != null" >
+        #{modifydate,jdbcType=INTEGER},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=INTEGER},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.comphca.counter.pojo.User" >
+    update t_user
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=BIGINT},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=CHAR},
+      </if>
+      <if test="modifydate != null" >
+        modifyDate = #{modifydate,jdbcType=INTEGER},
+      </if>
+      <if test="modifytime != null" >
+        modifyTime = #{modifytime,jdbcType=INTEGER},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.comphca.counter.pojo.User" >
+    update t_user
+    set uid = #{uid,jdbcType=BIGINT},
+      password = #{password,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=BIGINT},
+      createDate = #{createdate,jdbcType=CHAR},
+      createTime = #{createtime,jdbcType=CHAR},
+      modifyDate = #{modifydate,jdbcType=INTEGER},
+      modifyTime = #{modifytime,jdbcType=INTEGER},
+      token = #{token,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectUserByIdAndPwd" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where uid = #{uid}
+    and password = #{password}
+  </select>
+
+
+  <update id="updateLoginDate" parameterType="long" >
+    update t_user
+    set
+        modifyDate = current_date ,
+        modifyTime = current_time
+    where uid = #{uid}
+  </update>
+
+
+  <update id="updatePwd" parameterType="map" >
+    update t_user
+    set
+      password = #{newpwd}
+    where uid = #{uid}
+    and password = #{oldpwd}
+  </update>
+
+
+
+</mapper>
