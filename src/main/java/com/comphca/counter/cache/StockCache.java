@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,18 @@ public class StockCache {
         long st = System.currentTimeMillis();
 
         //1.加载股票数据
+        //存放的数据格式时{{code:**,abbrName:**,name:**}，{code:**,abbrName:**,name:**}，{code:**,abbrName:**,name:**}}
         List<Map<String, Object>> res = stockMapper.getAllStockInfo();
+        log.info("------------------------start------------------------");
+        for (Map<String, Object> r: res) {
+            Iterator<String> iter = r.keySet().iterator();
+            while(iter.hasNext()){
+                String key=iter.next();
+                log.info(key);
+            }
+        }
+        log.info("------------------------end------------------------");
+
         if (CollectionUtils.isEmpty(res)) {
             log.error("no stock find in db");
             return;
