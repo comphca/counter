@@ -60,12 +60,13 @@ public class LoginController {
         ServerResponse serverResponse = userService.login(Long.valueOf(uid),password,captcha,captchaId);
         System.out.println(""+uid+","+password+","+captcha+","+captchaId);
 //        System.out.println(serverResponse.getData().toString());
+        System.out.println(serverResponse.getStatus());
         return serverResponse;
     }
 
     @RequestMapping("/loginfail")
     public ServerResponse<String> loginFail(){
-        return ServerResponse.createByErrorMessage("登录失败");
+        return ServerResponse.createByErrorMessage("请重新登录");
     }
 
     @RequestMapping("/logout")

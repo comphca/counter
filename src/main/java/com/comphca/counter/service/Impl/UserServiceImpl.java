@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
             updatLoginDate(uid);
         }
         System.out.println(user.getToken());
+        System.out.println("登录成功");
         return ServerResponse.cerateBySuccess("登录成功",user);
 
     }
@@ -96,6 +97,20 @@ public class UserServiceImpl implements UserService {
         }
         return ServerResponse.createByErrorMessage("密码更新失败");
 
+    }
+
+    @Override
+    public ServerResponse getBalanceByUid(long uid) {
+        /*查金额的时候可以先校验一下用户是否存在，当前登录的对象是否正确*/
+        /*后面可以增加先查缓存，在查数据库，查万数据库在去更新缓存*/
+
+        int count = userMapper.getUserByUid(uid);
+        if (count > 0) {
+            Long balance = userMapper.getBalanceByUid(uid);
+            System.out.println("用户余额"+String.valueOf(balance) );
+            return ServerResponse.createBySuccess(balance);
+        }
+        return ServerResponse.createByErrorMessage("该用户不存在");
     }
 
 

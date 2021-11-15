@@ -25,7 +25,7 @@ public class sessionCheckFilter implements Filter {
 
     /*白名单*/
     private Set<String> whiteRootPaths =  Sets.newHashSet(
-            "login","msgsocks","test"
+            "login","msgsocks","test","order",""
     );
 
     @Override
@@ -47,7 +47,7 @@ public class sessionCheckFilter implements Filter {
         if (split.length < 2){
             request.getRequestDispatcher("/login/loginfail").forward(servletRequest,servletResponse);
         }else {
-            if (!whiteRootPaths.contains(split[1])){
+            if (!whiteRootPaths.contains(split[0])){
                 //不在白名单 验证token,前面登录之后放入到缓存的登录对象有效了
                 if (userService.accountExistInCache(request.getParameter("token"))){
                     filterChain.doFilter(servletRequest,servletResponse);

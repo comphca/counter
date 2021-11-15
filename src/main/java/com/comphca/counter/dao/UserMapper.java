@@ -23,4 +23,8 @@ public interface UserMapper {
     void updateLoginDate(Long uid);
 
     int updatePwd(@Param("uid") Long uid, @Param("oldpwd") String oldpwd, @Param("newpwd") String newpwd);
+
+    long getBalanceByUid(Long uid);
+
+    int getUserByUid(Long uid);
 }

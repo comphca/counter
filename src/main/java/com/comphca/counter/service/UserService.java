@@ -17,4 +17,6 @@ public interface UserService {
     boolean logout(String token);
 
     ServerResponse updatePwd(long uid, String oldpwd, String newpwd);
+
+    ServerResponse getBalanceByUid(long uid);
 }

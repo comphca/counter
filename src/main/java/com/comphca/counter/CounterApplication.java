@@ -1,6 +1,7 @@
 package com.comphca.counter;
 
 import com.comphca.counter.config.CounterConfig;
+import com.comphca.counter.dao.StockMapper;
 import com.comphca.counter.utils.myuuid;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 @MapperScan(value = "com.comphca.counter.dao")
 public class CounterApplication {
+
 
     public static void main(String[] args) {
         SpringApplication.run(CounterApplication.class, args);

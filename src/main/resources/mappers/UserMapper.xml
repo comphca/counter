@@ -169,5 +169,22 @@
   </update>
 
 
+  <select id="getBalanceByUid" parameterType="long" resultType="long">
+    select balance
+    from
+        t_user
+    where uid = #{uid}
+  </select>
+
+
+  <select id="getUserByUid" parameterType="long" resultType="integer">
+    select
+    count(1)
+    from
+      t_user
+    where uid = #{uid}
+  </select>
+
+
 
 </mapper>
