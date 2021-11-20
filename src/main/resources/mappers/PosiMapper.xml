@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.comphca.counter.dao.PosiMapper" >
+  <resultMap id="BaseResultMap" type="com.comphca.counter.pojo.Posi" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="code" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="cost" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="count" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, code, cost, count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_posi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_posi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.comphca.counter.pojo.Posi" >
+    insert into t_posi (id, uid, code, 
+      cost, count)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=BIGINT}, #{code,jdbcType=INTEGER}, 
+      #{cost,jdbcType=BIGINT}, #{count,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.comphca.counter.pojo.Posi" >
+    insert into t_posi
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=BIGINT},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.comphca.counter.pojo.Posi" >
+    update t_posi
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=BIGINT},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.comphca.counter.pojo.Posi" >
+    update t_posi
+    set uid = #{uid,jdbcType=BIGINT},
+      code = #{code,jdbcType=INTEGER},
+      cost = #{cost,jdbcType=BIGINT},
+      count = #{count,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getPosiListByUid" resultMap="BaseResultMap" parameterType="long" >
+    select
+    <include refid="Base_Column_List" />
+    from t_posi a,t_stock b
+    where a.uid = #{uid}
+    and a.code = b.code
+  </select>
+</mapper>

@@ -17,6 +17,10 @@ import org.springframework.stereotype.Component;
 public class CounterConfig {
     //配置读取yml中的值
 
+    ///////////会员号///////////
+    @Value("${counter.id}")
+    private short id;
+
     /////////////////////UUID 相关配置////////////////////////////////
     @Value("${counter.dataCenterId}")
     private long dataCenterId;

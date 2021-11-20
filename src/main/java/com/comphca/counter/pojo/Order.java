@@ -1,5 +1,8 @@
 package com.comphca.counter.pojo;
 
+import lombok.Builder;
+
+@Builder
 public class Order {
     private Integer id;
 
